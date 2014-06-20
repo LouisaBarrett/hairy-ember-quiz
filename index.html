@@ -8,21 +8,24 @@
 </head>
 <body>
   <script type="text/x-handlebars">
-    <h2>Hairy Quiz, Ember Addition</h2>
+    <h2>{{title}}</h2>
 
-    <div>{{#link-to 'warmup'}}Take the Warm Up Quiz{{/link-to}}</div>
+    <div>{{#link-to "warmup"}}Take the Warm Up Quiz{{/link-to}}</div>
 
     {{outlet}}
   </script>
 
   <script type="text/x-handlebars" id="warmup">
-    <h3>Warm Up Question</h3>
+    <h3>{{warmupTitle}}</h3>
 
-    <p class='question'>Dogs are never smelly</p>
-    <select class='js-answer'>
-      <option value='Keep warming up!'>True</option>
-      <option value='You are Ready.'>False</option>
-    </select>
+    {{#each warmupQuestions}}
+      <span>{{question}}</span>
+      <select class="question" questionId="{{id}}">
+        {{#each warmupOptions}}
+          <option value="{{value}}">{{display}}</option>
+        {{/each}}
+      </select>
+    {{/each}}
 
     <br>
 
@@ -33,32 +36,25 @@
     <p>Warm up Status: <span class="js-total"></span></p>
 
     <div>
-      {{#link-to 'quiz'}}Ready? Take the Actual Quiz!{{/link-to}} / {{#link-to 'index'}}Back to Index{{/link-to}}
+      {{#link-to "quiz"}}Ready? Take the Actual Quiz!{{/link-to}} / {{#link-to "index"}}Back to Index{{/link-to}}
     </div>
 
     {{ outlet}}
   </script>
 
-  <script type="text/x-handlebars" id="quiz">
-    <h3>The Actual Quiz</h3>
+ <script type="text/x-handlebars" id="quiz">
+    <h3>{{quizTitle}}</h3>
 
-     <p class='question'>Fish talk a lot</p>
-     <select class='js-answer1'>
-       <option value='0'>True</option>
-       <option value='10'>False</option>
-     </select>
-
-     <p class='question'>Cats are not Dogs</p>
-     <select class='js-answer2'>
-       <option value='10'>True</option>
-       <option value='0'>False</option>
-     </select>
-     
-     <p class='question'>Birds are hairy</p>
-     <select class='js-answer3'>
-       <option value='0'>True</option>
-       <option value='10'>False</option>
-     </select>
+     {{#each quizQuestions}}
+     <div>
+      <span>{{question}}</span>
+      <select class="question" questionId="{{id}}">
+        {{#each answerOptions}}
+          <option value="{{value}}">{{display}}</option>
+        {{/each}}
+      </select>
+     </div>
+     {{/each}}
 
      <br>
 
@@ -71,11 +67,11 @@
      <br>
 
      <div>
-       {{#link-to 'index'}}Back to Index{{/link-to}}
+       {{#link-to "index"}}Back to Index{{/link-to}}
      </div>
 
     {{ outlet}}
-  </script>
+ </script>
 
 
   <script src="js/libs/jquery-1.10.2.js"></script>
