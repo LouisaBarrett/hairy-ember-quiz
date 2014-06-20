@@ -45,26 +45,24 @@
  <script type="text/x-handlebars" id="quiz">
     <h3>{{quizTitle}}</h3>
 
-     {{#each quizQuestions}}
-     <div>
-      <span>{{question}}</span>
-      <select class="question" questionId="{{id}}">
-        {{#each answerOptions}}
-          <option value="{{value}}">{{display}}</option>
-        {{/each}}
-      </select>
-     </div>
-     {{/each}}
-
-     <br>
+    {{#each questions}}
+      <div>
+        <span>{{question}}</span>
+        <select class="question" questionId="{{id}}">
+          {{#each answerOptions}}
+            <option value="{{value}}">{{display}}</option>
+          {{/each}}
+        </select>
+       </div>
+    {{/each}}
 
      {{#view App.ClickQuizScore}}
        <button class="js-score">Get Score</button>
      {{/view}}
 
-     <p>Points: <span class="js-total2"></span></p>
+     <p>Points: <span class="js-total2">{{score}}</span></p>
 
-     <br>
+
 
      <div>
        {{#link-to "index"}}Back to Index{{/link-to}}
