@@ -9,43 +9,17 @@
 <body>
   <script type="text/x-handlebars">
     <h2>{{title}}</h2>
+    <p>{{description}}</p>
 
-    <div>{{#link-to "warmup"}}Take the Warm Up Quiz{{/link-to}}</div>
+    <div>{{#link-to "quiz"}}Ready? Take the Quiz!{{/link-to}}</div>
 
     {{outlet}}
-  </script>
-
-  <script type="text/x-handlebars" id="warmup">
-    <h3>{{warmupTitle}}</h3>
-
-    {{#each warmupQuestions}}
-      <span>{{question}}</span>
-      <select class="question" questionId="{{id}}">
-        {{#each warmupOptions}}
-          <option value="{{value}}">{{display}}</option>
-        {{/each}}
-      </select>
-    {{/each}}
-
-    <br>
-
-    {{#view App.ClickWarmUpStatus}}
-      <button class="js-get-ready">Score your Warm Up</button>
-    {{/view}}
-
-    <p>Warm up Status: <span class="js-total"></span></p>
-
-    <div>
-      {{#link-to "quiz"}}Ready? Take the Actual Quiz!{{/link-to}} / {{#link-to "index"}}Back to Index{{/link-to}}
-    </div>
-
-    {{ outlet}}
   </script>
 
  <script type="text/x-handlebars" id="quiz">
     <h3>{{quizTitle}}</h3>
 
-    {{#each questions}}
+    {{#each}}
       <div>
         <span>{{question}}</span>
         <select class="question" questionId="{{id}}">
@@ -56,19 +30,18 @@
        </div>
     {{/each}}
 
-     {{#view App.ClickQuizScore}}
-       <button class="js-score">Get Score</button>
-     {{/view}}
-
-     <p>Points: <span class="js-total2">{{score}}</span></p>
-
-
+      {{partial 'score'}}
+      <button {{ action 'getScore' on="click" }}>Get Score</button>
 
      <div>
        {{#link-to "index"}}Back to Index{{/link-to}}
      </div>
 
-    {{ outlet}}
+     {{outlet}}
+ </script>
+
+ <script type="text/x-handlebars" id="score">
+
  </script>
 
 
