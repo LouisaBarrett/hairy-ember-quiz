@@ -30,20 +30,18 @@
        </div>
     {{/each}}
 
-      {{partial 'score'}}
-      <button {{ action 'getScore' on="click" }}>Get Score</button>
+    <button>Get Score</button>
+    <div id="total-score">
+      <p> Total Score:</p>
+      <p {{ action 'ClickQuizScore' on="click" }} >{{ClickQuizScore}}</p>
+    </div>
 
-     <div>
-       {{#link-to "index"}}Back to Index{{/link-to}}
-     </div>
+    <div>
+      {{#link-to "index"}}Back to Index{{/link-to}}
+    </div>
 
-     {{outlet}}
+   {{outlet}}
  </script>
-
- <script type="text/x-handlebars" id="score">
-
- </script>
-
 
   <script src="js/libs/jquery-1.10.2.js"></script>
   <script src="js/libs/handlebars-1.1.2.js"></script>

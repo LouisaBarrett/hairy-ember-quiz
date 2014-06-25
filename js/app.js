@@ -3,7 +3,6 @@ App = Ember.Application.create({});
 
 App.Router.map(function() {
   this.resource("quiz");
-  this.resource('score');
 });
 
 App.ApplicationController = Ember.Controller.extend({
@@ -17,19 +16,26 @@ App.QuizRoute = Ember.Route.extend({
   }
 });
 
-App.ScoreController = Ember.Controller.extend({
+App.QuizController = Ember.ArrayController.extend({
   actions: {
     'getScore': function() {
-      // this.set('GetScore', true);
       alert('Score!')
+        var total; 
+        total = 0;
+        this.get('questions').forEach(function(question) { 
+          if (question.answerOptions.selected == correctAnswer) {
+            total += 10;
+          }
+        });
+        return total;
+      }.property('@each'),
     }
-  }
 });
 
 var questions = [{
-  'id': '1',
+  'id': 1,
   'question': "Fish have a lot of hair",
-  'value': 0,
+  'correctAnswer': 'False',
   'answerOptions': [{
     'display': "True",
     'value': 0
@@ -38,9 +44,9 @@ var questions = [{
     'value': 1
   }]
 }, {
-  'id': '2',
+  'id': 2,
   'question': "Cats are not dogs",
-  'value': 0,
+  'correctAnswer': 'True',
   'answerOptions': [{
     'display': "True",
     'value': 1
