@@ -30,11 +30,14 @@
        </div>
     {{/each}}
 
+    {{#view App.ClickQuizScore}}
     <button>Get Score</button>
     <div id="total-score">
-      <p> Total Score:</p>
-      <p {{ action 'ClickQuizScore' on="click" }} >{{ClickQuizScore}}</p>
+      <p>Total Score:</p>
+      <p {{ action 'App.ClickQuizScore' on="click" target="getScore" }} >{{total}}</p>
     </div>
+    {{/view}}
+
 
     <div>
       {{#link-to "index"}}Back to Index{{/link-to}}
