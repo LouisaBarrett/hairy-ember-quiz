@@ -16,48 +16,56 @@ App.QuizRoute = Ember.Route.extend({
   }
 });
 
+// App.QuizIndexController = Ember.ArrayController.extend({
+//   'quizTitle': 'Beast Quiz'
+// });
+
 App.QuizController = Ember.ArrayController.extend({
-  'quizTitle': 'Beast Quiz'
+  'getScore': false,
+
+  actions: {
+
+    totalScore: function() {
+      var total; 
+      total = 0;
+      this.get('model').forEach(function(question) { 
+        if (question.selectedAnswer == question.correctAnswer) {
+          total += 10;
+        }
+      });
+      this.set('getScore', true);
+      this.set('totalScore', total);
+    }
+      
+  }
 });
 
-App.ClickQuizScore = Ember.View.extend({
-  actions: {
-    'getScore': function() {
-      alert('Score!')
-        var total; 
-        total = 0;
-        this.get('questions').forEach(function(question) { 
-          if (question.answerOptions.display == correctAnswer) {
-            total += 10;
-          }
-          console.log(total);
-        });
-        return total;
-      }.property('@each'),
-    }
-});
+// App.ClickQuizScore = Ember.View.extend({
+//   actions: {
+//     'totalScore': function() {
+//       alert('Score!')
+//         var total; 
+//         total = 0;
+//         this.get('questions').forEach(function(question) { 
+//           if (question.answerOptions.display == correctAnswer) {
+//             total += 10;
+//           }
+//           console.log(total);
+//         });
+//         return total;
+//       }.property('@each'),
+//     }
+// });
 
 
 var questions = [{
   'id': 1,
   'question': "Fish have a lot of hair",
   'correctAnswer': 'False',
-  'answerOptions': [{
-    'display': "True",
-    'value': 0
-  }, {
-    'display': "False",
-    'value': 1
-  }]
+  'answerOptions': ["True", "False"]
 }, {
   'id': 2,
   'question': "Cats are not dogs",
   'correctAnswer': 'True',
-  'answerOptions': [{
-    'display': "True",
-    'value': 1
-  }, {
-    'display': "False",
-    'value': 0
-  }]
+  'answerOptions': ["True", "False"]
 }]; 

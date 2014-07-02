@@ -22,21 +22,20 @@
     {{#each}}
       <div>
         <span>{{question}}</span>
-        <select class="question" questionId="{{id}}">
-          {{#each answerOptions}}
-            <option value="{{value}}">{{display}}</option>
-          {{/each}}
-        </select>
+        {{view Ember.Select
+           content=answerOptions
+           value=selectedAnswer}}
        </div>
     {{/each}}
 
-    {{#view App.ClickQuizScore}}
-    <button>Get Score</button>
-    <div id="total-score">
-      <p>Total Score:</p>
-      <p {{ action 'App.ClickQuizScore' on="click" target="getScore" }} >{{total}}</p>
-    </div>
-    {{/view}}
+    
+    <button {{action 'totalScore'}}>Get Score</button>
+    {{#if getScore}}
+      <div id="total-score">
+        <p>Total Score:</p>
+        <p>{{totalScore}}</p>
+      </div>
+    {{/if}}
 
 
     <div>
