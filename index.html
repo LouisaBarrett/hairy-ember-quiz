@@ -9,68 +9,37 @@
 <body>
   <script type="text/x-handlebars">
     <h2>{{title}}</h2>
+    <p>{{description}}</p>
 
-    <div>{{#link-to "warmup"}}Take the Warm Up Quiz{{/link-to}}</div>
+    <div>{{#link-to "quiz"}}Ready? Take the Quiz!{{/link-to}}</div>
 
     {{outlet}}
-  </script>
-
-  <script type="text/x-handlebars" id="warmup">
-    <h3>{{warmupTitle}}</h3>
-
-    {{#each warmupQuestions}}
-      <span>{{question}}</span>
-      <select class="question" questionId="{{id}}">
-        {{#each warmupOptions}}
-          <option value="{{value}}">{{display}}</option>
-        {{/each}}
-      </select>
-    {{/each}}
-
-    <br>
-
-    {{#view App.ClickWarmUpStatus}}
-      <button class="js-get-ready">Score your Warm Up</button>
-    {{/view}}
-
-    <p>Warm up Status: <span class="js-total"></span></p>
-
-    <div>
-      {{#link-to "quiz"}}Ready? Take the Actual Quiz!{{/link-to}} / {{#link-to "index"}}Back to Index{{/link-to}}
-    </div>
-
-    {{ outlet}}
   </script>
 
  <script type="text/x-handlebars" id="quiz">
     <h3>{{quizTitle}}</h3>
 
-    {{#each questions}}
-      <div>
+    {{#each}}
+      <div {{bind-attr class='isCorrect:correct'}}>
         <span>{{question}}</span>
-        <select class="question" questionId="{{id}}">
-          {{#each answerOptions}}
-            <option value="{{value}}">{{display}}</option>
-          {{/each}}
-        </select>
+        {{view App.QuizAnswerSelect
+           content=answerOptions
+           value=selectedAnswer}}
        </div>
     {{/each}}
 
-     {{#view App.ClickQuizScore}}
-       <button class="js-score">Get Score</button>
-     {{/view}}
+    
+    <button {{action 'totalScore'}}>Get Score</button>
+    <div id="total-score">
+      <p>Total Score:</p>
+      <p>{{totalScore}}</p>
+    </div>
 
-     <p>Points: <span class="js-total2">{{score}}</span></p>
 
-
-
-     <div>
-       {{#link-to "index"}}Back to Index{{/link-to}}
-     </div>
-
-    {{ outlet}}
+    <div>
+      {{#link-to "index"}}Back to Index{{/link-to}}
+    </div>
  </script>
-
 
   <script src="js/libs/jquery-1.10.2.js"></script>
   <script src="js/libs/handlebars-1.1.2.js"></script>
