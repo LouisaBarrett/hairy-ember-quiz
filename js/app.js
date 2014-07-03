@@ -16,9 +16,6 @@ App.QuizRoute = Ember.Route.extend({
   }
 });
 
-// App.QuizIndexController = Ember.ArrayController.extend({
-//   'quizTitle': 'Beast Quiz'
-// });
 
 App.QuizController = Ember.ArrayController.extend({
   'getScore': false,
@@ -30,6 +27,7 @@ App.QuizController = Ember.ArrayController.extend({
       total = 0;
       this.get('model').forEach(function(question) { 
         if (question.selectedAnswer == question.correctAnswer) {
+          question.set('isCorrect', true);
           total += 10;
         }
       });
@@ -40,32 +38,20 @@ App.QuizController = Ember.ArrayController.extend({
   }
 });
 
-// App.ClickQuizScore = Ember.View.extend({
-//   actions: {
-//     'totalScore': function() {
-//       alert('Score!')
-//         var total; 
-//         total = 0;
-//         this.get('questions').forEach(function(question) { 
-//           if (question.answerOptions.display == correctAnswer) {
-//             total += 10;
-//           }
-//           console.log(total);
-//         });
-//         return total;
-//       }.property('@each'),
-//     }
-// });
+App.QuizAnswerSelect = Ember.Select.extend({
+  classNameBindings: ['context.isCorrect:correct']
+})
 
 
-var questions = [{
+var questions = [Ember.Object.create({
   'id': 1,
   'question': "Fish have a lot of hair",
   'correctAnswer': 'False',
   'answerOptions': ["True", "False"]
-}, {
+}), 
+Ember.Object.create({
   'id': 2,
   'question': "Cats are not dogs",
   'correctAnswer': 'True',
   'answerOptions': ["True", "False"]
-}]; 
+})]; 

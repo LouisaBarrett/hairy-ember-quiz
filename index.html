@@ -20,9 +20,9 @@
     <h3>{{quizTitle}}</h3>
 
     {{#each}}
-      <div>
+      <div {{bind-attr class='isCorrect:correct'}}>
         <span>{{question}}</span>
-        {{view Ember.Select
+        {{view App.QuizAnswerSelect
            content=answerOptions
            value=selectedAnswer}}
        </div>
@@ -30,19 +30,15 @@
 
     
     <button {{action 'totalScore'}}>Get Score</button>
-    {{#if getScore}}
-      <div id="total-score">
-        <p>Total Score:</p>
-        <p>{{totalScore}}</p>
-      </div>
-    {{/if}}
+    <div id="total-score">
+      <p>Total Score:</p>
+      <p>{{totalScore}}</p>
+    </div>
 
 
     <div>
       {{#link-to "index"}}Back to Index{{/link-to}}
     </div>
-
-   {{outlet}}
  </script>
 
   <script src="js/libs/jquery-1.10.2.js"></script>
