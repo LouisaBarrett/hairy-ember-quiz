@@ -15,3 +15,11 @@ body {
 h1, h2, h3 {
   color: #3f3f3f;
 }
+
+.correct {
+  color: green;
+}
+
+.wrong {
+  color: red;
+}
