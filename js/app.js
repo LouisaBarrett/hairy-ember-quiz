@@ -18,30 +18,22 @@ App.QuizRoute = Ember.Route.extend({
 
 
 App.QuizController = Ember.ArrayController.extend({
-  'getScore': false,
-
-  actions: {
-
-    totalScore: function() {
-      var total; 
-      total = 0;
-      this.get('model').forEach(function(question) { 
-        if (question.selectedAnswer == question.correctAnswer) {
-          question.set('isCorrect', true);
-          total += 10;
-        }
-      });
-      this.set('getScore', true);
-      this.set('totalScore', total);
-    }
-      
-  }
+  // computed property to @each.isCorrect
+  //  -> compute the number of correct answers and set score
+  totalScore: function() {
+    debugger
+    return this.get('model').filterBy('isCorrect', true).length * 10
+  }.property('@each.isCorrect')
 });
 
-App.QuizAnswerSelect = Ember.Select.extend({
-  classNameBindings: ['context.isCorrect:correct']
-})
-
+App.QuestionController = Ember.ObjectController.extend({
+  // observer to selectedAnswer
+  //  -> set is correct on question if selectedAnswer == correctAnswer
+  onSelectedAnswerChange: function() {
+    debugger
+    this.set('isCorrect', this.get('selectedAnswer') == this.get('correctAnswer'))
+  }.observes('selectedAnswer')
+});
 
 var questions = [Ember.Object.create({
   'id': 1,

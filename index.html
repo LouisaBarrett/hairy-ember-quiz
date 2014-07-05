@@ -19,17 +19,15 @@
  <script type="text/x-handlebars" id="quiz">
     <h3>{{quizTitle}}</h3>
 
-    {{#each}}
-      <div {{bind-attr class='isCorrect:correct'}}>
+    {{#each controller itemController="question"}}
+      <div {{bind-attr class='isCorrect:correct:wrong'}}>
         <span>{{question}}</span>
-        {{view App.QuizAnswerSelect
+        {{view Ember.Select
            content=answerOptions
            value=selectedAnswer}}
        </div>
     {{/each}}
-
     
-    <button {{action 'totalScore'}}>Get Score</button>
     <div id="total-score">
       <p>Total Score:</p>
       <p>{{totalScore}}</p>
